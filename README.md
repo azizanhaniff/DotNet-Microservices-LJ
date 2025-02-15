@@ -10,6 +10,8 @@ The tutorial uses .NET 5. I am using .NET 8. Aside from that, all codes are iden
 
 ## Part 3 - Docker and Kubernetes
 
+### Docker Hub and Docker Desktop
+
 1. Sign up an account at [Docker Hub](https://hub.docker.com/).
 2. Download and install [Docker Desktop](https://docs.docker.com/get-started/get-docker/). Once the installation finished, it will prompt for a restart.
 3. Update Windows Subsystem for Linux (WSL) to latest version by opening a Command Prompt and run `wsl.exe --update`.
@@ -36,7 +38,10 @@ The tutorial uses .NET 5. I am using .NET 8. Aside from that, all codes are iden
 
 ### Run Docker image for .NET 8
 
-There is an issue when following along **Containerizing the Platform Service** at **[2:40:26](https://youtu.be/DgVjEo3OGBI?si=6h9rPU74tyPB8yw9)**, just before going into **Pushing to Docker Hub**. After starting the container, I am unable to access it via browser nor Postman. It may be due to me using .NET 8 as opposed to .NET 5, which is the version Les Jackson uses for the full course.
+> [!NOTE]
+> .NET 8 has a new default port (`8080`) as compared to .NET 5 (`80`). So whatever that specifies port `80` in the full course, may need to change to port `8080`. [See this](https://stackoverflow.com/a/77743735).
+
+There is an issue when following along **Containerizing the Platform Service** at **[2:40:26](https://youtu.be/DgVjEo3OGBI?si=6h9rPU74tyPB8yw9)**, just before going into **Pushing to Docker Hub**. After starting the container, I am unable to access it via browser nor Postman. It may be due to me using .NET 8 as opposed to .NET 5, which is the version Les Jackson uses for the full course. 
 
 Some findings:
 * [Docker: ASP.NET Core 8.0 app not accessible outside container](https://stackoverflow.com/questions/78601206/docker-asp-net-core-8-0-app-not-accessible-outside-container)
@@ -47,3 +52,22 @@ These findings lead me to a [tutorial](https://dotnet.microsoft.com/en-us/learn/
 ### Adding .dockerignore
 
 The creation of **.dockerignore** is not a part of the full course. It is taken from the [tutorial](https://dotnet.microsoft.com/en-us/learn/aspnet/microservice-tutorial/docker-file) by Microsoft. I find it useful.
+
+### Kubernetes command cheat sheet
+
+> [!NOTE]
+> Before executing a Kubernetes command, make sure your command prompt directory has been changed to where the **platforms-depl.yaml** and **platforms-np-srv.yaml** are located.
+
+* To check if Kubernetes is running: `kubectl version`.
+* To apply a Deployment file: `kubectl apply -f platforms-depl.yaml`.
+  - A file of type Deployment will create the container.
+* To delete a deployment: `kubectl delete deployment platforms-depl`.
+  - This will delete the container.
+* To apply a Service file: `kubectl apply -f platforms-np-srv.yaml`.
+* To delete a service: `kubectl delete service platformnpsrv-service`.
+* To get all: `kubectl get all`.
+* To get list of nodes: `kubectl get nodes`.
+* To get list of deployments: `kubectl get deployments`.
+* To get list of pods: `kubectl get pods`.
+* To get list of services: `kubectl get services`.
+* To get logs of a pod: `kubectl logs app-pod`.
