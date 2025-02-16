@@ -6,7 +6,11 @@ There is no Part 1 as it is introduction and theory only. You need to watch the 
 
 ## Part 2 - Building The First Service
 
-The tutorial uses .NET 5. I am using .NET 8. Aside from that, all codes are identical.
+Some differences compared to the full course video:
+1. Full course uses **.NET 5**.
+   - I am using **.NET 8**.
+3. Full course installs `AutoMapper.Extensions.Microsoft.DependencyInjection`.
+   - At the time of this making, this package is deprecated and is suggested to install `AutoMapper` instead.
 
 ## Part 3 - Docker and Kubernetes
 
@@ -39,9 +43,9 @@ The tutorial uses .NET 5. I am using .NET 8. Aside from that, all codes are iden
 ### Run Docker image for .NET 8
 
 > [!NOTE]
-> .NET 8 has a new default port (`8080`) as compared to .NET 5 (`80`). So whatever that specifies port `80` in the full course, may need to change to port `8080`. [See this](https://stackoverflow.com/a/77743735).
+> **.NET 8** has a new default port (`8080`) as compared to **.NET 5** (`80`). So whatever that specifies port `80` in the full course, may need to change to port `8080`. [See this](https://stackoverflow.com/a/77743735).
 
-There is an issue when following along **Containerizing the Platform Service** at **[2:40:26](https://youtu.be/DgVjEo3OGBI?si=6h9rPU74tyPB8yw9)**, just before going into **Pushing to Docker Hub**. After starting the container, I am unable to access it via browser nor Postman. It may be due to me using .NET 8 as opposed to .NET 5, which is the version Les Jackson uses for the full course. 
+There is an issue when following along **Containerizing the Platform Service** at **[2:40:26](https://youtu.be/DgVjEo3OGBI?si=6h9rPU74tyPB8yw9)**, just before going into **Pushing to Docker Hub**. After starting the container, I am unable to access it via browser nor Postman. It may be due to me using **.NET 8** as opposed to **.NET 5**, which is the version Les Jackson uses for the full course video. 
 
 Some findings:
 * [Docker: ASP.NET Core 8.0 app not accessible outside container](https://stackoverflow.com/questions/78601206/docker-asp-net-core-8-0-app-not-accessible-outside-container)
@@ -51,7 +55,7 @@ These findings lead me to a [tutorial](https://dotnet.microsoft.com/en-us/learn/
 
 ### Adding .dockerignore
 
-The creation of **.dockerignore** is not a part of the full course. It is taken from the [tutorial](https://dotnet.microsoft.com/en-us/learn/aspnet/microservice-tutorial/docker-file) by Microsoft. I find it useful.
+The creation of **.dockerignore** is not part of the full course video. It is taken from a [tutorial](https://dotnet.microsoft.com/en-us/learn/aspnet/microservice-tutorial/docker-file) by Microsoft. I find it useful.
 
 ### Kubernetes command cheat sheet
 
@@ -60,7 +64,7 @@ The creation of **.dockerignore** is not a part of the full course. It is taken 
 
 * To check if Kubernetes is running: `kubectl version`.
 * To apply a Deployment file: `kubectl apply -f platforms-depl.yaml`.
-  - A file of type Deployment will create the container.
+  - This will create a container.
 * To delete a deployment: `kubectl delete deployment platforms-depl`.
   - This will delete the container.
 * To apply a Service file: `kubectl apply -f platforms-np-srv.yaml`.
@@ -71,3 +75,9 @@ The creation of **.dockerignore** is not a part of the full course. It is taken 
 * To get list of pods: `kubectl get pods`.
 * To get list of services: `kubectl get services`.
 * To get logs of a pod: `kubectl logs app-pod`.
+
+## Part 4 - Starting Our 2nd Service
+
+> [!NOTE]
+> In the full course video, Les Jackson points out to change the port in **launchSettings.json** for the **CommandsService** project as it is using the same port number with **PlatformService** project. However, this is not the case for me. I assume in **.NET 8**, every project will use a different port number upon creation. In **.NET 5**, I assume every project in a solution uses the same port.
+
