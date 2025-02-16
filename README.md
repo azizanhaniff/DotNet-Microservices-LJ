@@ -74,7 +74,10 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
 * To get list of deployments: `kubectl get deployments`.
 * To get list of pods: `kubectl get pods`.
 * To get list of services: `kubectl get services`.
+  - If there's a NodePort-typed service, communicate by checking the assigned port.
+    - `8080:32626/TCP` means that you can communicate with the Platforms API Controller route with `http://localhost:32626/api/platforms`.
 * To get logs of a pod: `kubectl logs app-pod`.
+* To restart a deployment: `kubectl rollout restart deployment platforms-depl`.
 
 ## Part 4 - Starting Our 2nd Service
 
@@ -89,3 +92,27 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
 - Send a POST request to **PlatformService** controller.
 - Check console and see what message is printed out for both scenarios.
   - You will notice the time taken to complete the request for the 2nd scenario is longer, indicating that this method is synchronous.
+
+### Deploying service to Kubernetes
+
+> [!NOTE]
+> At this point, we are still using Node Port to communicate with the services.
+
+Build, run and push the **CommandService** to your Docker Hub.
+
+1. `docker build -t <your_docker_hub_id>/commandservice .`.
+2. `docker run -p 8080:8080 <your_docker_hub_id>/commandservice`.
+3. `docker push <your_docker_hub_id>/commandservice`.
+
+Deploy both services to Kubernetes.
+
+1. `kubectl apply -f platforms-depl.yaml`.
+2. Restart deployment to pull the latest version: `kubectl rollout restart deployment platforms-depl`.
+3. `kubectl apply -f commands-depl.yaml`.
+
+**HTTPS Redirection** is commented out in **Program.cs**.
+
+### Adding an API Gateway
+
+> [!NOTE]
+> At this point, we moved away from using the Node Port and into using Nginx Ingress Controller to communicate with the services.
