@@ -81,3 +81,11 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
 > [!NOTE]
 > In the full course video, Les Jackson points out to change the port in **launchSettings.json** for the **CommandsService** project as it is using the same port number with **PlatformService** project. However, this is not the case for me. I assume in **.NET 8**, every project will use a different port number upon creation. In **.NET 5**, I assume every project in a solution uses the same port.
 
+### Adding a HTTP Client
+
+- Two scenarios to try:
+   1. Start both **PlatformService** and **CommandsService**.
+   2. Start only **PlatformService**.
+- Send a POST request to **PlatformService** controller.
+- Check console and see what message is printed out for both scenarios.
+  - You will notice the time taken to complete the request for the 2nd scenario is longer, indicating that this method is synchronous.
