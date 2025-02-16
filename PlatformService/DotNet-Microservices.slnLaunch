@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "PlatformService and CommandsService",
+    "Projects": [
+      {
+        "Path": "PlatformService\\PlatformService.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      },
+      {
+        "Path": "CommandsService\\CommandsService.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]
