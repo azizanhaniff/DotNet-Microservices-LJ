@@ -16,7 +16,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//We're not using HTTPS for this learning. Comment out so the warning is not triggered.
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
