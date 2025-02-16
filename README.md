@@ -78,6 +78,8 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
     - `8080:32626/TCP` means that you can communicate with the Platforms API Controller route with `http://localhost:32626/api/platforms`.
 * To get logs of a pod: `kubectl logs app-pod`.
 * To restart a deployment: `kubectl rollout restart deployment platforms-depl`.
+* To get list of namespaces: `kubectl get namespace`.
+* To get list of pods for a namespace: `kubectl get pods --namespace=ingress-nginx`.
 
 ## Part 4 - Starting Our 2nd Service
 
@@ -98,13 +100,13 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
 > [!NOTE]
 > At this point, we are still using Node Port to communicate with the services.
 
-Build, run and push the **CommandService** to your Docker Hub.
+Build, run and push the **CommandService** to your Docker Hub. Must be within **CommandsService** project directory.
 
 1. `docker build -t <your_docker_hub_id>/commandservice .`.
 2. `docker run -p 8080:8080 <your_docker_hub_id>/commandservice`.
 3. `docker push <your_docker_hub_id>/commandservice`.
 
-Deploy both services to Kubernetes.
+Deploy both services to Kubernetes. Must be within **K8S** directory.
 
 1. `kubectl apply -f platforms-depl.yaml`.
 2. Restart deployment to pull the latest version: `kubectl rollout restart deployment platforms-depl`.
@@ -115,4 +117,17 @@ Deploy both services to Kubernetes.
 ### Adding an API Gateway
 
 > [!NOTE]
-> At this point, we moved away from using the Node Port and into using Nginx Ingress Controller to communicate with the services.
+> At this point, we moved away from using the Node Port and into using Ingress Nginx Controller to communicate with the services.
+
+> [!WARNING]
+> At the time of this making, when creating **ingress-srv.yaml**, it mentions that the annotation "kubernetes.io/ingress.class" is deprecated. Ignore this warning.
+
+1. Following [this](https://kubernetes.github.io/ingress-nginx/deploy/#docker-desktop) guide.
+2. `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.12.0/deploy/static/provider/cloud/deploy.yaml`.
+   - This will create the Ingress Nginx Controller container.
+3. For **Windows**, go to `C:\Windows\System32\drivers\etc` and open the `hosts` file on a text editor and add in `127.0.0.1   acme.com`.
+   - This is required because the host in **ingress-srv.yaml** is using **acme.com** to redirect to **localhost**.
+4. `kubectl apply -f ingress-srv.yaml`.
+   - All the port numbers uses `8080` instead of `80`.
+   - Run the command on **Command Prompt** within **K8S** directory.
+5. Test by sending request to `http://acme.com/api/platforms`.
