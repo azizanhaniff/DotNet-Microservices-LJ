@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "ee354e59-5eaa-4b1d-a8b9-2a1365f39fff",
+		"name": ".NET Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11229835"
+	},
+	"item": [
+		{
+			"name": "Platform Service",
+			"item": [
+				{
+					"name": "Ingress Nginx",
+					"item": [
+						{
+							"name": "Get Platforms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://acme.com/api/platforms",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Platform By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://acme.com/api/platforms/:id",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"platforms",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Platform",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"string\",\r\n    \"publisher\": \"string\",\r\n    \"cost\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:32626/api/platforms",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "32626",
+									"path": [
+										"api",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Node Port",
+					"item": [
+						{
+							"name": "Get Platforms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:32626/api/platforms",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "32626",
+									"path": [
+										"api",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Platform By Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:32626/api/platforms/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "32626",
+									"path": [
+										"api",
+										"platforms",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Platform",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"string\",\r\n    \"publisher\": \"string\",\r\n    \"cost\": \"string\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:32626/api/platforms",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "32626",
+									"path": [
+										"api",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
