@@ -80,6 +80,7 @@ The creation of **.dockerignore** is not part of the full course video. It is ta
 * To restart a deployment: `kubectl rollout restart deployment platforms-depl`.
 * To get list of namespaces: `kubectl get namespace`.
 * To get list of pods for a namespace: `kubectl get pods --namespace=ingress-nginx`.
+* To get list of storage class: `kubectl get storageclass`.
 
 ## Part 4 - Starting Our 2nd Service
 
@@ -131,3 +132,12 @@ Deploy both services to Kubernetes. Must be within **K8S** directory.
    - All the port numbers uses `8080` instead of `80`.
    - Run the command on **Command Prompt** within **K8S** directory.
 5. Test by sending request to `http://acme.com/api/platforms`.
+
+## Part 5 - Starting with SQL Server
+
+- `kubectl apply -f local-pvc.yaml` to create a **Persistent Volume Claim**.
+
+### Adding a Kubernetes Secret
+
+- `kubectl create secret generic mssql --from-literal=SA_PASSWORD="pa55w0rd!"`.
+  - Remember the name **mssql** and the key **SA_PASSWORD** that is defined.
