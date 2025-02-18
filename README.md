@@ -9,7 +9,7 @@ There is no Part 1 as it is introduction and theory only. You need to watch the 
 Some differences compared to the full course video:
 1. Full course uses **.NET 5**.
    - I am using **.NET 8**.
-3. Full course installs `AutoMapper.Extensions.Microsoft.DependencyInjection`.
+2. Full course installs `AutoMapper.Extensions.Microsoft.DependencyInjection`.
    - At the time of this making, this package is deprecated and is suggested to install `AutoMapper` instead.
 
 ## Part 3 - Docker and Kubernetes
@@ -140,4 +140,50 @@ Deploy both services to Kubernetes. Must be within **K8S** directory.
 ### Adding a Kubernetes Secret
 
 - `kubectl create secret generic mssql --from-literal=SA_PASSWORD="pa55w0rd!"`.
-  - Remember the name **mssql** and the key **SA_PASSWORD** that is defined.
+  - Remember the name `mssql` and the key `SA_PASSWORD` that is defined.
+  - You can specify whatever password you want here. I'm only using what Les Jackson uses for an easier follow-along learning.
+- If you're planning to use MSSQL 2022, use: `kubectl create secret generic mssql --from-literal=MSSQL_SA_PASSWORD="pa55w0rd!"`.
+
+### Deploying SQL Server to Kubernetes
+
+Some differences compared to the full course video:
+1. Full course uses **MSSQL 2017**.
+   - I am using **MSSQL 2022**.
+2. Full course uses `SA_PASSWORD` as key because Les Jackson is using **MSSQL 2017**.
+   - I am using `MSSQL_SA_PASSWORD` as key because I am using **MSSQL 2022**.
+
+Apply the deployment with `kubectl apply -f mssql-plat-depl.yaml`.
+
+### Accessing SQL Server via Management Studio
+
+> [!NOTE]
+> In the full course video, **SQL Server Management Studio (SSMS)** is used to connect into the server externally using the Load Balancer concept. However, I am using **SQL Server Object Explorer** on **Visual Studio 2022** to do so. If you have and wish to use **SSMS**, just follow the full course.
+
+To test connect to the server on **Visual Studio 2022**:
+
+1. **View** `>` **SQL Server Object Explorer**.
+2. Click the **Add SQL Server** icon. Alternatively, right-click **SQL Server** and select **Add SQL Server**. Enter the connection detail:
+   - Server Name: `localhost,1433`
+   - Authentication: `SQL Server Authentication`
+   - User Name: `sa`
+   - Password: `pa55w0rd!` (or the one you specified when creating secret `mssql`)
+   - Database Name: `<default>`
+   - Encrypt: `Optional (False)`
+   - Trust Server Certificate: `False`
+3. Click **Connect** button.
+4. **localhost,1433** should now be available in the tree under **SQL Server**.
+
+To test that the persistent volume claim works:
+
+1. Expand **localhost,1433**.
+2. Right-click **Databases** and select **Add New Database**.
+3. Name it anything, e.g. **Test**.
+4. Right-click **localhost,1433** and select **Disconnect**.
+5. Go to **Docker Desktop** `>` **Containers**.
+6. Delete the **MSSQL** container.
+   e.g. Find a container with name prefix `k8s_mssql_mssql-depl-<something-something>`.
+7. A new **MSSQL** container should be running automatically.
+8. Reconnect to the server on **SQL Server Object Explorer**.
+9. Verify if **Test** database is still there.
+   - If still there, then persistent volume claim is working as expected.
+10. Delete **Test** database, since it is only created to verify persistent volume claim works.
