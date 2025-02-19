@@ -6,10 +6,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
+if (builder.Environment.IsProduction())
 {
-    opt.UseInMemoryDatabase("InMem");
-});
+    Console.WriteLine("--> Using SqlServer Db");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+    {
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn"));
+    });
+}
+else
+{
+    Console.WriteLine("--> Using InMem Db");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+    {
+        opt.UseInMemoryDatabase("InMem");
+    });
+}
 
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
 
@@ -39,6 +51,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-PrepDB.PrepPopulation(app);
+PrepDB.PrepPopulation(app, app.Environment.IsProduction());
 
 app.Run();
