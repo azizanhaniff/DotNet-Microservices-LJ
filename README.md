@@ -187,3 +187,22 @@ To test that the persistent volume claim works:
 9. Verify if **Test** database is still there.
    - If still there, then persistent volume claim is working as expected.
 10. Delete **Test** database, since it is only created to verify persistent volume claim works.
+
+### Updating our Platform Service to use SQL Server
+
+1. In the full course video, the command to perform database migration is `dotnet ef migrations add initialmigration`.
+   - This is not working for me which is probably due to some missing global settings.
+   - I am using [`Add-Migration -Name InitialMigration`](https://learn.microsoft.com/en-us/ef/core/cli/powershell#add-migration) instead.
+   - Before I can use `Add-Migration`, it requires me to install the NuGet package `Microsoft.EntityFrameworkCore.Tools`. At the time of this making, the latest version is `8.0.13`.
+   - After installing, I close and reopen the solution.
+   - I am also using the same `8.0.13` version for `Microsoft.EntityFrameworkCore`, `Microsoft.EntityFrameworkCore.Design`, `Microsoft.EntityFrameworkCore.InMemory` and `Microsoft.EntityFrameworkCore.SqlServer` NuGet packages.
+2. In the full course video, there are no issues when redeploying **platforms-depl.yaml**.
+   - For **.NET 8**, I get an exception with message `Only the invariant culture is supported in globalization-invariant mode`.
+     - To fix this [issue](https://github.com/dotnet/SqlClient/issues/2239), I need to modify the value for `InvariantGlobalization` from `true` to `false`.
+3. In the full course video, the connection string for **PlatformsConn** is `Server=mssql-clusterip-srv,1433;Initial Catalog=platformsdb;User ID=sa;Password=pa55w0rd!;`.
+   - I am using `Server=10.105.207.125,1433;Database=platformsdb;User ID=sa;Password=pa55w0rd!;Encrypt=False;Trust Server Certificate=False;`.
+   - For **.NET 8**, I get an exception with message `A network-related or instance-specific error occurred while establishing a connection to SQL Server. The server was not found or was not accessible. Verify that the instance name is correct and that SQL Server is configured to allow remote connections.`. It fails to establish a connection when specifying `mssql-clusterip-srv,1433` as the server. I also try changing to `localhost,1433` but still getting the same exception message.
+   - I run `kubectl get services` to check the **Cluster IP** value for both `mssql-clusterip-srv` (e.g. `10.105.207.125`) and `mssql-loadbalancer-srv` (e.g. `10.107.116.21`) services.
+   - I modified the connection string to use `10.105.207.125,1433` as the server. It successfully connects to the SQL Server.
+   - I modified the connection string to use `10.107.116.21,1433` as the server. It also successfully connects to the SQL Server.
+   - I am assuming, the latest configuration is to use the **Cluster IP** instead of the service's name.
