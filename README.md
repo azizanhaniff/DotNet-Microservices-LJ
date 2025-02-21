@@ -211,3 +211,37 @@ To test that the persistent volume claim works:
 
 > [!NOTE]
 > Nothing worth noting on this chapter.
+
+## Part 7 - Message Bus and RabbitMQ
+
+### RabbitMQ Overview
+
+What is RabbitMQ
+- A message broker - it accepts and forwards messages.
+- Messages are sent by Producers (or Publishers).
+- Messages are received by Consumers (or Subscribers).
+- Messages are stored on Queues (essentially a message buffer).
+  - This implementation is not part of the full course video.
+- Exchanges can be used to add "routing" functionality.
+- Uses Advanced Message Queueing Protocol (AMQP) and others.
+
+4 Types of Exchange
+- Direct Exchange
+  - Delivers Messages to Queues based on a routing key.
+  - Ideal for "direct" or unicast messaging.
+- Fanout Exchange (The full course video uses this)
+  - Delivers Messages to all Queues that are bound to the exchange.
+  - It ignores the routing key.
+  - Ideal for broadcast messages.
+- Topic Exchange
+  - Routes Messages to 1 or more Queues based on the routing key (and patterns).
+  - Used for Multicast messaging.
+  - Implements various Publisher / Subscriber Patterns.
+- Header Exchange
+
+### Deploy RabbitMQ to Kubernetes
+
+> [!NOTE]
+> The full course video uses RabbitMQ `3-management` version. I am using `4-management` version.
+
+Login to RabbitMQ Management page on browser via `localhost:15672`. This is possible thanks to the Load Balancer.
