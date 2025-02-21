@@ -206,3 +206,8 @@ To test that the persistent volume claim works:
    - I modified the connection string to use `10.105.207.125,1433` as the server. It successfully connects to the SQL Server.
    - I modified the connection string to use `10.107.116.21,1433` as the server. It also successfully connects to the SQL Server.
    - I am assuming, the latest configuration is to use the **Cluster IP** instead of the service's name.
+
+## Part 6 - Multi-Resource API
+
+> [!NOTE]
+> Nothing worth noting on this chapter.
