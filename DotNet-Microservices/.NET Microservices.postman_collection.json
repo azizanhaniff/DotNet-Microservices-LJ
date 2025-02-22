@@ -52,7 +52,7 @@
 									"variable": [
 										{
 											"key": "id",
-											"value": "1"
+											"value": "5"
 										}
 									]
 								}
@@ -66,7 +66,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"string\",\r\n    \"publisher\": \"string\",\r\n    \"cost\": \"string\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Consul\",\r\n    \"publisher\": \"Hashicrop\",\r\n    \"cost\": \"Free\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -74,12 +74,12 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:32626/api/platforms",
+									"raw": "http://acme.com/api/platforms",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"acme",
+										"com"
 									],
-									"port": "32626",
 									"path": [
 										"api",
 										"platforms"
@@ -99,12 +99,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:32626/api/platforms",
+									"raw": "http://localhost:30232/api/platforms",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "32626",
+									"port": "30232",
 									"path": [
 										"api",
 										"platforms"
@@ -119,12 +119,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:32626/api/platforms/:id",
+									"raw": "http://localhost:30232/api/platforms/:id",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "32626",
+									"port": "30232",
 									"path": [
 										"api",
 										"platforms",
@@ -147,7 +147,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"string\",\r\n    \"publisher\": \"string\",\r\n    \"cost\": \"string\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Vagrant\",\r\n    \"publisher\": \"Hashicrop\",\r\n    \"cost\": \"Free\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -155,14 +155,133 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:32626/api/platforms",
+									"raw": "http://localhost:30232/api/platforms",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
-									"port": "32626",
+									"port": "30232",
 									"path": [
 										"api",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Command Service",
+			"item": [
+				{
+					"name": "Ingress Nginx",
+					"item": [
+						{
+							"name": "Get Platforms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://acme.com/api/c/platforms",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"c",
+										"platforms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Commands for Platform",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://acme.com/api/c/platforms/:platformId/commands",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"c",
+										"platforms",
+										":platformId",
+										"commands"
+									],
+									"variable": [
+										{
+											"key": "platformId",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Command for Platform",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"HowTo\": \"This is the how-to\",\r\n    \"CommandLine\": \"This is the command line\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://acme.com/api/c/platforms/:platformId/commands",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"c",
+										"platforms",
+										":platformId",
+										"commands"
+									],
+									"variable": [
+										{
+											"key": "platformId",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Platform",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://acme.com/api/c/platforms",
+									"protocol": "http",
+									"host": [
+										"acme",
+										"com"
+									],
+									"path": [
+										"api",
+										"c",
 										"platforms"
 									]
 								}
