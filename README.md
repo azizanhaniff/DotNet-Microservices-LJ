@@ -273,3 +273,5 @@ Login to RabbitMQ Management page on browser via `localhost:15672`. This is poss
    - I am using `7.1.0` version which is the latest version at the time of making this.
    - The implementation for `MessageBusSubcriber` becomes different because some, if not all, of the methods are now asynchronous.
      - I refer to the code for [`ReceiveLogs.cs`](https://www.rabbitmq.com/tutorials/tutorial-three-dotnet#putting-it-all-together) by RabbitMQ for the implementation while trying to make it similar to what the full course video does.
+2. The full course video uses `rabbitmq-clusterip-srv` as the value for `RabbitMQHost` for **Production**.
+   - I am using the **Cluster IP** specified on `kubectl get services` e.g. `10.108.210.180`.
