@@ -245,3 +245,31 @@ What is RabbitMQ
 > The full course video uses RabbitMQ `3-management` version. I am using `4-management` version.
 
 Login to RabbitMQ Management page on browser via `localhost:15672`. This is possible thanks to the Load Balancer.
+
+## Part 8 - Asynchronous Messaging
+
+### Add a Message Bus Publisher to Platform Service
+
+1. The full course video uses RabbitMQ.Client version `6.2.2`.
+   - I am using `7.1.0` version which is the latest version at the time of making this.
+   - The implementation for `MessageBusClient` becomes different because some, if not all, of the methods are now asynchronous.
+     - I refer to the code for [`EmitLog.cs`](https://www.rabbitmq.com/tutorials/tutorial-three-dotnet#putting-it-all-together) by RabbitMQ for the implementation while trying to make it similar to what the full course video does.
+2. The full course video uses `rabbitmq-clusterip-srv` as the value for `RabbitMQHost` for **Production**.
+   - I am using the **Cluster IP** specified on `kubectl get services` e.g. `10.108.210.180`.
+
+### Command Service ground work
+
+> [!NOTE]
+> Nothing worth noting on this chapter.
+
+### Event Processing
+
+> [!NOTE]
+> Nothing worth noting on this chapter.
+
+### Adding an Event Listener
+
+1. The full course video uses RabbitMQ.Client version `6.2.2`.
+   - I am using `7.1.0` version which is the latest version at the time of making this.
+   - The implementation for `MessageBusSubcriber` becomes different because some, if not all, of the methods are now asynchronous.
+     - I refer to the code for [`ReceiveLogs.cs`](https://www.rabbitmq.com/tutorials/tutorial-three-dotnet#putting-it-all-together) by RabbitMQ for the implementation while trying to make it similar to what the full course video does.
